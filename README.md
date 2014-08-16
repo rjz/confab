@@ -3,6 +3,9 @@ Confilter
 
 Load and transform configuration files using chains of recycleable filters:
 
+[![Build Status](https://travis-ci.org/rjz/confilter.png)](https://travis-ci.org/rjz/confilter)
+[![Coverage Status](https://coveralls.io/repos/rjz/confilter/badge.png?branch=master)](https://coveralls.io/r/rjz/confilter?branch=master)
+
     var confilter = require('confilter');
 
     var config = confilter([
