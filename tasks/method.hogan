@@ -1,0 +1,41 @@
+<section>
+  <a class="pull-right" href="#top">[top]</a>
+  <h3><a name="{{id}}"></a>{{id}}</h3>
+  <section>{{{description_html}}}</section>
+  {{#params.length}}
+  <h5>Arguments</h5>
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  {{#params}}
+    <tr>
+      <td><code>{{type}}</code></td>
+      <td>{{name}}</td>
+      <td>{{description}}</td>
+    </tr>
+  {{/params}}
+  </table>
+  {{/params.length}}
+  {{#signal.length}}
+    <h5>Signals</h5>
+    <ul>
+    {{#signal}}
+      <li>
+        <code>{{name}}</code> -
+        {{desc}}
+      </li>
+    {{/signal}}
+    </ul>
+  {{/signal.length}}
+
+
+  {{#example}}
+    <h5>Example</h5>
+    <pre><code>{{example}}</code></pre>
+  {{/example}}
+
+</section>
+
