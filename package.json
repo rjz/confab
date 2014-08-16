@@ -1,6 +1,6 @@
 {
   "name": "confilter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Filter-driven configuration",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,10 @@
     "url": "git://github.com/rjz/confilter"
   },
   "keywords": [
-    "config", "configuration", "environment", "json"
+    "config",
+    "configuration",
+    "environment",
+    "json"
   ],
   "author": "RJ Zaworski <rj@rjzaworski.com>",
   "license": "MIT",
