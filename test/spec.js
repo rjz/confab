@@ -24,10 +24,32 @@ describe('confilter', function () {
   });
 
   describe('filters.loadJSON', function () {
-    var stuff = confilter([confilter.loadJSON([__dirname + '/test.json'])]);
 
     it('has right author', function () {
-      assert.equal(stuff.author, 'Lewis Carroll');
+      var config = confilter([
+        confilter.loadJSON([__dirname + '/test.json'])
+      ]);
+      assert.equal(config.author, 'Lewis Carroll');
+    });
+
+    it('skips missing files', function () {
+      var config = confilter([
+        confilter.loadJSON([
+          __dirname + '/missing.json',
+          __dirname + '/test.json'
+        ])
+      ]);
+      assert.equal(config.author, 'Lewis Carroll');
+    });
+
+    it('throws when no config is available', function () {
+      assert.throws(function () {
+        confilter([
+          confilter.loadJSON([
+            __dirname + '/missing.json'
+          ])
+        ]);
+      });
     });
   });
 
