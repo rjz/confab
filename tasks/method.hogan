@@ -1,14 +1,26 @@
 <section>
-  <a class="pull-right" href="#top">[top]</a>
-  <h3><a name="{{id}}"></a>{{id}}</h3>
+  <div class="pull-right">
+    [
+    <a href="#{{groupName}}">{{groupName}}</a> | 
+    <a href="#top">top</a>
+    ]
+  </div>
+
+  <h3>
+    <a name="{{id}}"></a>{{id}}
+    <small>(<a href="{{repository}}/tree/master/{{file}}#L{{line}}">definition</a>)</small>
+  </h3>
+
   <section>{{{description_html}}}</section>
+
   {{#params.length}}
+
   <h5>Arguments</h5>
   <table>
     <tr>
-      <th>Type</th>
-      <th>Name</th>
-      <th>Description</th>
+      <th width="15%">Type</th>
+      <th width="15%">Name</th>
+      <th width="60%">Description</th>
     </tr>
   {{#params}}
     <tr>
@@ -19,18 +31,6 @@
   {{/params}}
   </table>
   {{/params.length}}
-  {{#signal.length}}
-    <h5>Signals</h5>
-    <ul>
-    {{#signal}}
-      <li>
-        <code>{{name}}</code> -
-        {{desc}}
-      </li>
-    {{/signal}}
-    </ul>
-  {{/signal.length}}
-
 
   {{#example}}
     <h5>Example</h5>

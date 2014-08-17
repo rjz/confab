@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/jshint/bin/jshint && ./node_modules/mocha/bin/mocha",
-    "docs": "node -e 'require(\"./tasks\").docs()'",
+    "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'",
     "cover": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rjz/confilter"
+    "url": "https://github.com/rjz/confilter"
   },
   "keywords": [
     "config",
