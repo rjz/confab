@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/jshint/bin/jshint && ./node_modules/mocha/bin/mocha",
+    "cover": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'",
-    "cover": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "pages": "bash tasks/rebuild-gh-pages.sh"
   },
   "repository": {
     "type": "git",
