@@ -6,6 +6,19 @@ var filters = require('./lib/filters');
 /**
  * Reduce a list of filter functions to a configuration object
  *
+ *      var confilter = require('confilter');
+ *      var config = confilter([
+ *        confilter.loadJSON([
+ *          './config.' + process.env.NODE_ENV + '.json',
+ *          './config.json'
+ *        ]),
+ *
+ *        confilter.defaults({
+ *          role: 'api',
+ *          port: 3200
+ *        }),
+ *      ]);
+ *
  * @id confilter
  * @type Function
  * @param {Array} filters - a list of filter functions
