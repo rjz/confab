@@ -25,7 +25,7 @@
               <ul>
                 {{#methods}}
                 <li>
-                  <a href="#{{groupName}}-{{id}}">{{id}}</a>
+                  <a href="#{{groupName}}-{{id}}"><code>{{id}}</code></a>
                 </li>
                 {{/methods}}
               </ul>
