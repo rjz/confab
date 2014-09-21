@@ -34,6 +34,9 @@
                   <a href="#filters-loadJSON"><code>loadJSON</code></a>
                 </li>
                 <li>
+                  <a href="#filters-mapEnvironment"><code>mapEnvironment</code></a>
+                </li>
+                <li>
                   <a href="#filters-required"><code>required</code></a>
                 </li>
                 <li>
@@ -149,6 +152,49 @@ paths.</p>
             
             </section>
             
+          <a name="filters-mapEnvironment"></a>
+            <section>
+              <header>
+                <ul class="pull-right nav-meta nav-inline">
+                  <li><a href="#filters">filters</a></li>
+                  <li><a href="#top">top</a></li>
+                </ul>
+            
+                <h3>
+                  <a name="mapEnvironment"></a><code>mapEnvironment</code>
+                  <small>(<a href="https://github.com/rjz/confilter/tree/master/lib/filters.js#L48">definition</a>)</small>
+                </h3>
+              </header>
+              <div>
+            
+                <p>Map environment variables (if available) to keys in the config.</p>
+
+<pre><code>var envFilter = confilter.mapEnvironment({
+  'NODE_ENV': 'environment',
+  'PORT': 'port'
+});
+</code></pre>
+            
+            
+                <h4>Arguments</h4>
+                <table>
+                  <tr>
+                    <th width="15%">Type</th>
+                    <th width="15%">Name</th>
+                    <th width="60%">Description</th>
+                  </tr>
+                  <tr>
+                    <td><code>Object</code></td>
+                    <td>map</td>
+                    <td>a list of environment variables to map to config keys</td>
+                  </tr>
+    </table>
+
+            
+              </div>
+            
+            </section>
+            
           <a name="filters-required"></a>
             <section>
               <header>
@@ -159,7 +205,7 @@ paths.</p>
             
                 <h3>
                   <a name="required"></a><code>required</code>
-                  <small>(<a href="https://github.com/rjz/confilter/tree/master/lib/filters.js#L48">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confilter/tree/master/lib/filters.js#L76">definition</a>)</small>
                 </h3>
               </header>
               <div>
@@ -197,7 +243,7 @@ missing fields. If all fields are present, <code>required</code> acts as a pass-
             
                 <h3>
                   <a name="defaults"></a><code>defaults</code>
-                  <small>(<a href="https://github.com/rjz/confilter/tree/master/lib/filters.js#L72">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confilter/tree/master/lib/filters.js#L100">definition</a>)</small>
                 </h3>
               </header>
               <div>
@@ -245,7 +291,7 @@ missing fields. If all fields are present, <code>required</code> acts as a pass-
             
                 <h3>
                   <a name="freeze"></a><code>freeze</code>
-                  <small>(<a href="https://github.com/rjz/confilter/tree/master/lib/filters.js#L102">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confilter/tree/master/lib/filters.js#L130">definition</a>)</small>
                 </h3>
               </header>
               <div>
