@@ -53,6 +53,30 @@ describe('confilter', function () {
     });
   });
 
+  describe('filters.mapEnvironment', function () {
+
+    it('maps it', function () {
+
+      var config = confilter([
+        confilter.mapEnvironment({
+          'SOME_AUTHOR': 'author'
+        })
+      ]);
+
+      assert.equal(config.author, 'Ernest Hemingway');
+    });
+
+    it('throws when no map is specified', function () {
+      assert.throws(function () {
+        confilter([
+          confilter.mapEnvironment()
+        ]);
+      });
+    });
+  });
+
+
+
   describe('filters.required', function () {
 
     it('throws on missing field', function () {
