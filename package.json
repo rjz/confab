@@ -1,6 +1,6 @@
 {
   "name": "confilter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Filter-driven configuration",
   "main": "index.js",
   "scripts": {
