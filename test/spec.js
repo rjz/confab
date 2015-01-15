@@ -1,8 +1,8 @@
 var assert = require('assert');
 
-var confilter = require('../index');
+var confab = require('../index');
 
-describe('confilter', function () {
+describe('confab', function () {
 
   var aFilter = function (config) {
     return { a: 4 };
@@ -17,7 +17,7 @@ describe('confilter', function () {
   };
 
   it('applies filters to an object', function () {
-    assert.equal(confilter([
+    assert.equal(confab([
       aFilter,
       timesTwoFilter
     ]).a, 8);
@@ -26,15 +26,15 @@ describe('confilter', function () {
   describe('filters.loadJSON', function () {
 
     it('has right author', function () {
-      var config = confilter([
-        confilter.loadJSON([__dirname + '/test.json'])
+      var config = confab([
+        confab.loadJSON([__dirname + '/test.json'])
       ]);
       assert.equal(config.author, 'Lewis Carroll');
     });
 
     it('skips missing files', function () {
-      var config = confilter([
-        confilter.loadJSON([
+      var config = confab([
+        confab.loadJSON([
           __dirname + '/missing.json',
           __dirname + '/test.json'
         ])
@@ -44,8 +44,8 @@ describe('confilter', function () {
 
     it('throws when no config is available', function () {
       assert.throws(function () {
-        confilter([
-          confilter.loadJSON([
+        confab([
+          confab.loadJSON([
             __dirname + '/missing.json'
           ])
         ]);
@@ -57,8 +57,8 @@ describe('confilter', function () {
 
     it('maps it', function () {
 
-      var config = confilter([
-        confilter.mapEnvironment({
+      var config = confab([
+        confab.mapEnvironment({
           'SOME_AUTHOR': 'author'
         })
       ]);
@@ -68,8 +68,8 @@ describe('confilter', function () {
 
     it('throws when no map is specified', function () {
       assert.throws(function () {
-        confilter([
-          confilter.mapEnvironment()
+        confab([
+          confab.mapEnvironment()
         ]);
       });
     });
@@ -81,27 +81,27 @@ describe('confilter', function () {
 
     it('throws on missing field', function () {
       assert.throws(function () {
-        confilter([
-          confilter.loadJSON([__dirname + '/test.json']),
-          confilter.required(['foo'])
+        confab([
+          confab.loadJSON([__dirname + '/test.json']),
+          confab.required(['foo'])
         ]);
       });
     });
 
     it('passes when field is present', function () {
       assert.doesNotThrow(function () {
-        confilter([
-          confilter.loadJSON([__dirname + '/test.json']),
-          confilter.required(['author'])
+        confab([
+          confab.loadJSON([__dirname + '/test.json']),
+          confab.required(['author'])
         ]);
       });
     });
   });
 
   describe('filters.defaults', function () {
-    var config = confilter([
-      confilter.loadJSON([__dirname + '/test.json']),
-      confilter.defaults({
+    var config = confab([
+      confab.loadJSON([__dirname + '/test.json']),
+      confab.defaults({
         foo: 'bar'
       })
     ]);
@@ -115,10 +115,10 @@ describe('confilter', function () {
     it('freezes the results', function () {
       'use strict'
 
-      var config = confilter([
+      var config = confab([
         aFilter,
         timesTwoFilter,
-        confilter.freeze()
+        confab.freeze()
       ]);
 
       assert.throws(function () {

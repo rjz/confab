@@ -1,7 +1,7 @@
 {
-  "name": "confilter",
+  "name": "confab",
   "version": "0.0.3",
-  "description": "Filter-driven configuration",
+  "description": "fabulous configuration!",
   "main": "index.js",
   "scripts": {
     "test": "node_modules/jshint/bin/jshint && NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/mocha/bin/mocha",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rjz/confilter"
+    "url": "https://github.com/rjz/confab"
   },
   "keywords": [
     "config",
@@ -22,7 +22,7 @@
   "author": "RJ Zaworski <rj@rjzaworski.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rjz/confilter/issues"
+    "url": "https://github.com/rjz/confab/issues"
   },
   "dependencies": {},
   "devDependencies": {

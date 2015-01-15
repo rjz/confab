@@ -1,36 +1,40 @@
 var fs = require('fs'),
     path = require('path');
 
-var filters = require('./lib/filters');
+var transforms = require('./lib/transforms');
 
 /**
- * Reduce a list of filter functions to a configuration object
+ * Build a configuration object from a list of transformations:
  *
- *      var confilter = require('confilter');
- *      var config = confilter([
- *        confilter.loadJSON([
+ *      var confab = require('confab');
+ *      var config = confab([
+ *        confab.loadJSON([
  *          './config.' + process.env.NODE_ENV + '.json',
  *          './config.json'
  *        ]),
  *
- *        confilter.defaults({
+ *        confab.defaults({
  *          role: 'api',
  *          port: 3200
  *        }),
  *      ]);
  *
- * @id confilter
+ * Later, access the configuration exactly as you would expect.
+ *
+ *      console.log(config.role); // 'api'
+ *
+ * @id confab
  * @type Function
- * @param {Array} filters - a list of filter functions
+ * @param {Array} transforms - a list of transformation functions
  */
-module.exports = function confilter (filters) {
-  return filters.reduce(function (memo, fn) {
+module.exports = function confab (transforms) {
+  return transforms.reduce(function (memo, fn) {
     return fn(memo);
   }, {});
 };
 
 // Extend with known filters
-for (f in filters) {
-  module.exports[f] = filters[f];
+for (f in transforms) {
+  module.exports[f] = transforms[f];
 }
 
