@@ -1,4 +1,4 @@
-Confilter
+Confab
 ===============================================================================
 
 Build configuration objects from chains of recycleable transformations:

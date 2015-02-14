@@ -4,11 +4,11 @@ var confab = require('../index');
 
 describe('confab', function () {
 
-  var aFilter = function (config) {
+  var populateConfig = function (config) {
     return { a: 4 };
   };
 
-  var timesTwoFilter = function (config) {
+  var applyTimesTwo = function (config) {
     Object.keys(config).forEach(function (k) {
       if (typeof config[k] === 'number') config[k] *= 2;
     });
@@ -16,14 +16,14 @@ describe('confab', function () {
     return config;
   };
 
-  it('applies filters to an object', function () {
+  it('applies transforms to an object', function () {
     assert.equal(confab([
-      aFilter,
-      timesTwoFilter
+      populateConfig,
+      applyTimesTwo
     ]).a, 8);
   });
 
-  describe('filters.loadJSON', function () {
+  describe('transforms.loadJSON', function () {
 
     it('has right author', function () {
       var config = confab([
@@ -53,7 +53,7 @@ describe('confab', function () {
     });
   });
 
-  describe('filters.mapEnvironment', function () {
+  describe('transforms.mapEnvironment', function () {
 
     it('maps it', function () {
 
@@ -77,7 +77,7 @@ describe('confab', function () {
 
 
 
-  describe('filters.required', function () {
+  describe('transforms.required', function () {
 
     it('throws on missing field', function () {
       assert.throws(function () {
@@ -98,7 +98,7 @@ describe('confab', function () {
     });
   });
 
-  describe('filters.defaults', function () {
+  describe('transforms.defaults', function () {
     var config = confab([
       confab.loadJSON([__dirname + '/test.json']),
       confab.defaults({
@@ -111,13 +111,13 @@ describe('confab', function () {
     });
   });
 
-  describe('filters.freeze', function () {
+  describe('transforms.freeze', function () {
     it('freezes the results', function () {
       'use strict'
 
       var config = confab([
-        aFilter,
-        timesTwoFilter,
+        populateConfig,
+        applyTimesTwo,
         confab.freeze()
       ]);
 

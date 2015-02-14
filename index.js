@@ -33,7 +33,7 @@ module.exports = function confab (transforms) {
   }, {});
 };
 
-// Extend with known filters
+// Extend with known transforms
 for (f in transforms) {
   module.exports[f] = transforms[f];
 }
