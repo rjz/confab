@@ -2,11 +2,13 @@ var assert = require('assert');
 
 var confab = require('../index');
 
-describe('confab', function () {
-
-  var populateConfig = function (config) {
-    return { a: 4 };
+function populate (val) {
+  return function () {
+    return val;
   };
+}
+
+describe('confab', function () {
 
   var applyTimesTwo = function (config) {
     Object.keys(config).forEach(function (k) {
@@ -18,7 +20,7 @@ describe('confab', function () {
 
   it('applies transforms to an object', function () {
     assert.equal(confab([
-      populateConfig,
+      populate({ a: 4 }),
       applyTimesTwo
     ]).a, 8);
   });
@@ -75,6 +77,38 @@ describe('confab', function () {
     });
   });
 
+  describe('transforms.merge', function () {
+
+    var config;
+
+    beforeEach(function () {
+      config = confab([
+        populate({
+          a: 4,
+          isClobbered: false
+        }),
+
+        confab.merge({
+          merged: 'value',
+          isClobbered: true
+        })
+      ]);
+    });
+
+    it('adds the passed object', function () {
+      assert.equal(config.merged, 'value');
+    });
+
+    it('retains existing keys', function () {
+      assert.equal(config.a, 4);
+    });
+
+    it('clobbers duplicate keys', function () {
+      assert.equal(config.isClobbered, true);
+    });
+  });
+
+
 
 
   describe('transforms.required', function () {
@@ -116,7 +150,7 @@ describe('confab', function () {
       'use strict'
 
       var config = confab([
-        populateConfig,
+        populate({ a: 4 }),
         applyTimesTwo,
         confab.freeze()
       ]);
