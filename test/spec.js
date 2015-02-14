@@ -55,12 +55,12 @@ describe('confab', function () {
     });
   });
 
-  describe('transforms.mapEnvironment', function () {
+  describe('transforms.loadEnvironment', function () {
 
     it('maps it', function () {
 
       var config = confab([
-        confab.mapEnvironment({
+        confab.loadEnvironment({
           'SOME_AUTHOR': 'author'
         })
       ]);
@@ -71,13 +71,13 @@ describe('confab', function () {
     it('throws when no map is specified', function () {
       assert.throws(function () {
         confab([
-          confab.mapEnvironment()
+          confab.loadEnvironment()
         ]);
       });
     });
   });
 
-  describe('transforms.merge', function () {
+  describe('transforms.assign', function () {
 
     var config;
 
@@ -88,15 +88,17 @@ describe('confab', function () {
           isClobbered: false
         }),
 
-        confab.merge({
-          merged: 'value',
+        confab.assign({
+          assigned: 'value',
           isClobbered: true
+        }, {
+          secondObject: true
         })
       ]);
     });
 
     it('adds the passed object', function () {
-      assert.equal(config.merged, 'value');
+      assert.equal(config.assigned, 'value');
     });
 
     it('retains existing keys', function () {
@@ -106,10 +108,19 @@ describe('confab', function () {
     it('clobbers duplicate keys', function () {
       assert.equal(config.isClobbered, true);
     });
+
+    it('assigns multiple objects', function () {
+      assert.equal(config.secondObject, true);
+    });
+
+    it('throws if no object is supplied', function () {
+      assert.throws(function () {
+        config = confab([
+          confab.assign()
+        ]);
+      });
+    });
   });
-
-
-
 
   describe('transforms.required', function () {
 
