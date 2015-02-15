@@ -16,7 +16,7 @@ var transforms = require('./lib/transforms');
  *        confab.defaults({
  *          role: 'api',
  *          port: 3200
- *        }),
+ *        })
  *      ]);
  *
  * Later, access the configuration exactly as you would expect.
