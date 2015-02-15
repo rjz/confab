@@ -43,7 +43,7 @@ Confab ships with transformations for:
   * Marking required values
   * Locking down the configuration
 
-Complete [reference](http://rjz.github.io/confab/#transformations).
+Complete [reference](http://rjz.github.io/confab/#transforms).
 
 ### Custom transformations
 
