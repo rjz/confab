@@ -10,7 +10,7 @@ Build configuration objects from chains of recycleable transformations:
     var confab = require('confab');
 
     var config = confab([
-      confab.mapEnvironment({
+      confab.loadEnvironment({
         PORT: 'port'
       }),
 
