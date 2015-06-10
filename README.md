@@ -32,6 +32,44 @@ Installation
 
     $ npm install confab
 
+Convention and Configuration
+-------------------------------------------------------------------------------
+
+Confab is configuration-first by nature, as the details of configuration may
+vary widely from one project to the next. Nevertheless, the built-in
+transformations reflect certain opinions.
+
+Namely, configuration should be:
+
+  * **separate**. Keeping configuration isolated from application logic eases
+    deployment across multiple environments. Confab encourages developers to
+    author complete configurations independent of the application.
+
+  * **predictable**. Like any other exception, errors in configuration should be
+    immediately fatal. All confab transformations will fail immediately if
+    unexpected conditions are encountered, while the [`required`][confab-required]
+    transformation can assert the presence of certain configuration keys.
+    Similarly, the [`defaults`][confab-defaults] transformation--while
+    unquestionably useful--should be approached with care.
+
+  * **immutable**. The running application should not be concerned with
+    configuration changes: if a change must be applied it should be applied to a
+    new process. The [`freeze`][confab-freeze] transformation guarantees that a
+    config will not change after initialization.
+
+  * **simple**. File-based configs (JSON, YAML, etc.) make
+    it easy to nest data inside multiple levels of keys. This is convenient for
+    grouping like data, but it is not immediately clear how these data would map
+    to (e.g.) environment variables or command-line arguments.
+    Sub-configurations can enhance separation between unrelated concerns, but
+    they should be used with care.
+
+##### And one non-opinion
+
+  * Command-line parsing, and what impact (if any) arguments should have on the
+    configuration is left as a project-specific decision. No transformations
+    are provided for command-line support--but you can write your own!
+
 Transformations
 -------------------------------------------------------------------------------
 
@@ -85,4 +123,8 @@ License
 -------------------------------------------------------------------------------
 
 MIT
+
+[confab-defaults]: http://rjz.github.io/confab/#transforms-defaults
+[confab-required]: http://rjz.github.io/confab/#transforms-required
+[confab-freeze]: http://rjz.github.io/confab/#transforms-freeze
 
