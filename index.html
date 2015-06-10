@@ -12,6 +12,43 @@
 
         <div>
           <p>fabulous configuration!</p>
+
+          <h3 id="convention-and-configuration">Convention and Configuration</h3>
+          <p>Confab is configuration-first by nature, as the details of configuration may
+          vary widely from one project to the next. Nevertheless, the built-in
+          transformations reflect certain opinions.</p>
+          <p>Namely, configuration should be:</p>
+          <ul>
+            <li><p><strong>separate</strong>. Keeping configuration isolated from application logic eases
+            deployment across multiple environments. Confab encourages developers to
+            author complete configurations independent of the application.</p>
+            </li>
+            <li><p><strong>predictable</strong>. Like any other exception, errors in configuration should be
+            immediately fatal. All confab transformations will fail immediately if
+            unexpected conditions are encountered, while the <a href="http://rjz.github.io/confab/#transforms-required"><code>required</code></a>
+            transformation can assert the presence of certain configuration keys.
+            Similarly, the <a href="http://rjz.github.io/confab/#transforms-defaults"><code>defaults</code></a> transformation--while
+            unquestionably useful--should be approached with care.</p>
+            </li>
+            <li><p><strong>immutable</strong>. The running application should not be concerned with
+            configuration changes: if a change must be applied it should be applied to a
+            new process. The <a href="http://rjz.github.io/confab/#transforms-freeze"><code>freeze</code></a> transformation guarantees that a
+            config will not change after initialization.</p>
+            </li>
+            <li><p><strong>simple</strong>. File-based configs (JSON, YAML, etc.) make
+            it easy to nest data inside multiple levels of keys. This is convenient for
+            grouping like data, but it is not immediately clear how these data would map
+            to (e.g.) environment variables or command-line arguments.
+            Sub-configurations can enhance separation between unrelated concerns, but
+            they should be used with care.</p>
+            </li>
+          </ul>
+          <h4 id="and-one-non-opinion">And one non-opinion</h4>
+          <ul>
+            <li>Command-line parsing, and what impact (if any) arguments should have on the
+            configuration is left as a project-specific decision. No transformations
+            are provided for command-line support--but you can write your own!</li>
+          </ul>
         </div>
 
         <h3>Contents</h3>
@@ -81,7 +118,7 @@
    confab.defaults({
      role: 'api',
      port: 3200
-   }),
+   })
  ]);
 </code></pre>
 
@@ -136,7 +173,7 @@ paths.</p>
 <pre><code>var loadJSONTransform = confab.loadJSON([
  './config.json',
   __dirname + '/config.json',
-  process.env.HOME + '/config.json',
+  process.env.HOME + '/config.json'
 ]);
 </code></pre>
             
