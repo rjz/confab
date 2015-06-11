@@ -7,5 +7,5 @@ NPMDIR="$DIR/../node_modules/"
 TESTCMD="$NPMDIR/mocha/bin/_mocha"
 TESTARGS="--report lcovonly"
 
-NODE_ENV=test $NPMDIR/.bin/istanbul cover $TESTCMD $TESTARGS && cat "$DIR/../coverage/lcov.info" | $NPMDIR/.bin/coveralls
+$NPMDIR/.bin/istanbul cover $TESTCMD $TESTARGS && cat "$DIR/../coverage/lcov.info" | $NPMDIR/.bin/coveralls
 
