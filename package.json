@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/jshint/bin/jshint && NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/mocha/bin/mocha",
-    "cover": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' istanbul cover ./node_modules/mocha/bin/_mocha && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'",
-    "pages": "bash tasks/rebuild-gh-pages.sh"
+    "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'"
   },
   "repository": {
     "type": "git",
