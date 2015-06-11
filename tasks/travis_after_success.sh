@@ -11,6 +11,5 @@ GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
   exit 0;
 }
 
-$DIR/coverage.sh
 $DIR/rebuild-gh-pages.sh
 

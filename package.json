@@ -4,7 +4,9 @@
   "description": "fabulous configuration!",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/jshint/bin/jshint && NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/mocha/bin/mocha",
+    "pretest": "./node_modules/jshint/bin/jshint",
+    "test": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
+    "posttest": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
     "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'"
   },
   "repository": {
