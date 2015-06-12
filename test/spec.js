@@ -53,6 +53,17 @@ describe('confab', function () {
         ]);
       });
     });
+
+    it('does not clobber existing config', function () {
+      config = confab([
+        confab.assign({ "extra": "anything" }),
+        confab.loadJSON([
+          __dirname + '/test.json'
+        ])
+      ]);
+
+      assert.equal(config.extra, "anything");
+    });
   });
 
   describe('transforms.loadEnvironment', function () {
