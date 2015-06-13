@@ -11,5 +11,7 @@ GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
   exit 0;
 }
 
+cat "$DIR/../coverage/lcov.info" | "$DIR/../node_modules/.bin/coveralls"
+
 $DIR/rebuild-gh-pages.sh
 

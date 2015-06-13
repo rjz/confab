@@ -1,4 +1,5 @@
 var assert = require('assert');
+var path = require('path');
 
 var confab = require('../index');
 
@@ -6,6 +7,10 @@ function populate (val) {
   return function () {
     return val;
   };
+}
+
+function jsonFixturePath (name) {
+  return path.join(__dirname, 'fixtures', name + '.json');
 }
 
 describe('confab', function () {
@@ -29,7 +34,16 @@ describe('confab', function () {
 
     it('has right author', function () {
       var config = confab([
-        confab.loadJSON([__dirname + '/test.json'])
+        confab.loadJSON([
+          jsonFixturePath('test')
+        ])
+      ]);
+      assert.equal(config.author, 'Lewis Carroll');
+    });
+
+    it('accepts a single file as a string', function () {
+      var config = confab([
+        confab.loadJSON(jsonFixturePath('test'))
       ]);
       assert.equal(config.author, 'Lewis Carroll');
     });
@@ -37,8 +51,8 @@ describe('confab', function () {
     it('skips missing files', function () {
       var config = confab([
         confab.loadJSON([
-          __dirname + '/missing.json',
-          __dirname + '/test.json'
+          jsonFixturePath('missing'),
+          jsonFixturePath('test')
         ])
       ]);
       assert.equal(config.author, 'Lewis Carroll');
@@ -47,9 +61,15 @@ describe('confab', function () {
     it('throws when no config is available', function () {
       assert.throws(function () {
         confab([
-          confab.loadJSON([
-            __dirname + '/missing.json'
-          ])
+          confab.loadJSON(jsonFixturePath('missing'))
+        ]);
+      });
+    });
+
+    it('throws when config is not parseable', function () {
+      assert.throws(function () {
+        confab([
+          confab.loadJSON(jsonFixturePath('invalid'))
         ]);
       });
     });
@@ -57,9 +77,7 @@ describe('confab', function () {
     it('does not clobber existing config', function () {
       config = confab([
         confab.assign({ "extra": "anything" }),
-        confab.loadJSON([
-          __dirname + '/test.json'
-        ])
+        confab.loadJSON(jsonFixturePath('test'))
       ]);
 
       assert.equal(config.extra, "anything");
@@ -69,7 +87,6 @@ describe('confab', function () {
   describe('transforms.loadEnvironment', function () {
 
     it('maps it', function () {
-
       var config = confab([
         confab.loadEnvironment({
           'SOME_AUTHOR': 'author'
@@ -77,6 +94,16 @@ describe('confab', function () {
       ]);
 
       assert.equal(config.author, 'Ernest Hemingway');
+    });
+
+    it('does not clobber undefined params', function () {
+      var config = confab([
+        confab.loadEnvironment({
+          'UNDEFINED_KEY': 'undefinedField'
+        })
+      ]);
+
+      assert.equal(config.undefinedField, undefined);
     });
 
     it('throws when no map is specified', function () {
@@ -138,7 +165,7 @@ describe('confab', function () {
     it('throws on missing field', function () {
       assert.throws(function () {
         confab([
-          confab.loadJSON([__dirname + '/test.json']),
+          confab.loadJSON(jsonFixturePath('test')),
           confab.required(['foo'])
         ]);
       });
@@ -147,7 +174,7 @@ describe('confab', function () {
     it('passes when field is present', function () {
       assert.doesNotThrow(function () {
         confab([
-          confab.loadJSON([__dirname + '/test.json']),
+          confab.loadJSON(jsonFixturePath('test')),
           confab.required(['author'])
         ]);
       });
@@ -156,7 +183,7 @@ describe('confab', function () {
 
   describe('transforms.defaults', function () {
     var config = confab([
-      confab.loadJSON([__dirname + '/test.json']),
+      confab.loadJSON(jsonFixturePath('test')),
       confab.defaults({
         foo: 'bar'
       })

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "pretest": "./node_modules/jshint/bin/jshint",
-    "test": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
-    "posttest": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "test": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/mocha/bin/_mocha",
+    "cover": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
     "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'"
   },
   "repository": {
