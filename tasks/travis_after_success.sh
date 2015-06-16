@@ -4,10 +4,8 @@ set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-[ "$GIT_BRANCH" == 'master' ] || {
-  echo "Skipping post-build tasks for $GIT_BRANCH"
+[ "$TRAVIS_PULL_REQUEST" == 'false' && "$TRAVIS_BRANCH" == 'master' ] || {
+  echo "Skipping post-build tasks for pull request"
   exit 0;
 }
 
