@@ -9,7 +9,5 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   exit 0;
 }
 
-$DIR/rebuild-gh-pages.sh
-
 cat coverage/lcov.info | coveralls
 
