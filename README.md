@@ -7,6 +7,7 @@ Build configuration objects from chains of recycleable transformations:
 [![Coverage Status](https://coveralls.io/repos/rjz/confab/badge.png?branch=master)](https://coveralls.io/r/rjz/confab?branch=master)
 
     // file: myapp.js
+    'use strict';
     var confab = require('confab');
 
     var config = confab([

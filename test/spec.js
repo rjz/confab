@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert');
 var path = require('path');
 
@@ -75,7 +77,7 @@ describe('confab', function () {
     });
 
     it('does not clobber existing config', function () {
-      config = confab([
+      var config = confab([
         confab.assign({ "extra": "anything" }),
         confab.loadJSON(jsonFixturePath('test'))
       ]);
