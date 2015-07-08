@@ -186,13 +186,19 @@ describe('confab', function () {
   describe('transforms.defaults', function () {
     var config = confab([
       confab.loadJSON(jsonFixturePath('test')),
+      confab.assign({ untrue: false }),
       confab.defaults({
-        foo: 'bar'
+        foo: 'bar',
+        untrue: true
       })
     ]);
 
     it('fills in missing values', function () {
       assert.equal(config.foo, 'bar')
+    });
+
+    it('does not clobber falsy params', function () {
+      assert.equal(config.untrue, false);
     });
   });
 
