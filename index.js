@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs'),
     path = require('path');
 
@@ -34,7 +36,7 @@ module.exports = function confab (transforms) {
 };
 
 // Extend with known transforms
-for (f in transforms) {
+for (var f in transforms) {
   module.exports[f] = transforms[f];
 }
 
