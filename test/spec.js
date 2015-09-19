@@ -25,6 +25,10 @@ describe('confab', function () {
     return config;
   };
 
+  it('starts out empty', function () {
+    assert.deepEqual(confab([]), {});
+  });
+
   it('applies transforms to an object', function () {
     assert.equal(confab([
       populate({ a: 4 }),
