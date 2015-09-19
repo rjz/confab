@@ -24,7 +24,9 @@
   "bugs": {
     "url": "https://github.com/rjz/confab/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "object-assign": "~4.0.1"
+  },
   "devDependencies": {
     "coveralls": "~2.11.1",
     "glob": "~4.0.0",
@@ -32,7 +34,6 @@
     "istanbul": "~0.3.0",
     "jshint": "~2.5.2",
     "mocha": "~1.13.0",
-    "object-assign": "~4.0.1",
     "scrawl": "~0.0.5"
   }
 }
