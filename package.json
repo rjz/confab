@@ -4,9 +4,9 @@
   "description": "fabulous configuration!",
   "main": "index.js",
   "scripts": {
-    "pretest": "./node_modules/jshint/bin/jshint",
-    "test": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/mocha/bin/_mocha",
-    "cover": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
+    "pretest": "jshint",
+    "test": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' jasmine-node test/",
+    "cover": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' istanbul cover jasmine-node test/",
     "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'"
   },
   "repository": {
@@ -32,8 +32,8 @@
     "glob": "~4.0.0",
     "hogan.js": "~2.0.0",
     "istanbul": "~0.3.0",
+    "jasmine-node": "^1.14.5",
     "jshint": "~2.5.2",
-    "mocha": "~1.13.0",
     "scrawl": "~0.0.5"
   }
 }

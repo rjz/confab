@@ -3,7 +3,7 @@
 var assert = require('assert');
 var path = require('path');
 
-var confab = require('../index');
+var confab = require(path.resolve(__dirname, '../index'));
 
 function populate (val) {
   return function () {
