@@ -13,7 +13,6 @@ env:
 
 before_script:
   - export PATH=$PATH:$PWD/node_modules/.bin
-  - export TRAVIS_CI_3894_NODE_PATH=$(nvm which $TRAVIS_NODE_VERSION)
 
 script: npm run cover
 
