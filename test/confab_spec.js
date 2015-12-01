@@ -1,6 +1,7 @@
 'use strict';
 
 var assert = require('assert');
+var exec = require('child_process').exec;
 var path = require('path');
 
 var confab = require(path.resolve(__dirname, '../index'));
@@ -92,31 +93,48 @@ describe('confab', function () {
 
   describe('transforms.loadEnvironment', function () {
 
-    it('maps it', function () {
-      var config = confab([
-        confab.loadEnvironment({
-          'SOME_AUTHOR': 'author'
-        })
-      ]);
+    function execTestAppWithEnv (env, callback) {
+      var testAppPath = path.resolve(__dirname, 'fixtures/app.js');
+      var opts = { env: env };
+      exec('node ' + testAppPath, opts, function (err, stdout) {
+        var config;
 
-      assert.equal(config.author, 'Ernest Hemingway');
-    });
+        if (err) return callback(err);
 
-    it('does not clobber undefined params', function () {
-      var config = confab([
-        confab.loadEnvironment({
-          'UNDEFINED_KEY': 'undefinedField'
-        })
-      ]);
+        try {
+          config = JSON.parse(stdout);
+        }
+        catch (e) {
+          console.error('Failed parsing stdout:', stdout);
+          return callback(e);
+        }
 
-      assert.equal(config.undefinedField, undefined);
-    });
+        callback(null, config);
+      });
+    }
 
     it('throws when no map is specified', function () {
       assert.throws(function () {
         confab([
           confab.loadEnvironment()
         ]);
+      });
+    });
+
+    it('maps it', function (done) {
+      var env = { SOME_AUTHOR: 'Ernest Hemingway' };
+      execTestAppWithEnv(env, function (err, config) {
+        if (err) return done(err);
+        assert.equal(config.author, 'Ernest Hemingway');
+        done();
+      });
+    });
+
+    it('does not clobber undefined params', function (done) {
+      execTestAppWithEnv({}, function (err, config) {
+        if (err) return done(err);
+        assert.equal(config.undefinedField, undefined);
+        done();
       });
     });
   });
