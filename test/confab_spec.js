@@ -1,5 +1,6 @@
 'use strict';
 
+var assign = require('object-assign');
 var assert = require('assert');
 var exec = require('child_process').exec;
 var path = require('path');
@@ -94,12 +95,9 @@ describe('confab', function () {
   describe('transforms.loadEnvironment', function () {
 
     function execTestAppWithEnv (env, callback) {
-      // `node` isn't available to child processes inside travis containerized
-      // builds. See: https://github.com/travis-ci/travis-ci/issues/3894.
-      var nodeBinPath = process.env.TRAVIS_CI_3894_NODE_PATH || 'node';
       var testAppPath = path.resolve(__dirname, 'fixtures/app.js');
-      var opts = { env: env };
-      exec(nodeBinPath + ' ' + testAppPath, opts, function (err, stdout) {
+      var opts = { env: assign({}, process.env, env) };
+      exec('node ' + testAppPath, opts, function (err, stdout) {
         var config;
 
         if (err) return callback(err);
