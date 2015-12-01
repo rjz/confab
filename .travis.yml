@@ -9,7 +9,6 @@ sudo: false
 env:
   global:
     - NODE_ENV=test
-    - SOME_AUTHOR='Ernest Hemingway'
 
 before_script:
   - export PATH=$PATH:$PWD/node_modules/.bin
