@@ -198,7 +198,7 @@ describe('confab', function () {
     ]);
 
     it('fills in missing values', function () {
-      assert.equal(config.foo, 'bar')
+      assert.equal(config.foo, 'bar');
     });
 
     it('does not clobber falsy params', function () {
@@ -208,8 +208,6 @@ describe('confab', function () {
 
   describe('transforms.freeze', function () {
     it('freezes the results', function () {
-      'use strict'
-
       var config = confab([
         populate({ a: 4 }),
         applyTimesTwo,

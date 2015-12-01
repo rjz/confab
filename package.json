@@ -4,7 +4,7 @@
   "description": "fabulous configuration!",
   "main": "index.js",
   "scripts": {
-    "pretest": "jshint",
+    "pretest": "jshint .",
     "test": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' jasmine-node test/",
     "cover": "NODE_ENV=test SOME_AUTHOR='Ernest Hemingway' istanbul cover jasmine-node test/",
     "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'"

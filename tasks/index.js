@@ -10,7 +10,7 @@ function fatalOr (orElse) {
     else {
       orElse.apply(this, [].slice.call(arguments, 1));
     }
-  }
+  };
 }
 
 function indexBy (arr, key) {
@@ -44,7 +44,7 @@ module.exports.docs = function (patterns) {
         groupName: group,
         methods: indexedMethods[group]
       };
-    })
+    });
   }
 
   var glob = require('glob'),
@@ -69,7 +69,7 @@ module.exports.docs = function (patterns) {
     return ts;
   }, {});
 
-  var tmpl = templates['template'].render({
+  var tmpl = templates.template.render({
     groups      : transformFiles(files),
     repository  : packageJson.repository.url,
     name        : packageJson.name,
