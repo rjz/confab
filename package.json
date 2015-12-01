@@ -1,6 +1,6 @@
 {
   "name": "confab",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "fabulous configuration!",
   "main": "index.js",
   "scripts": {
