@@ -137,6 +137,15 @@ describe('confab', function () {
         done();
       });
     });
+
+    it('resolves booleans on request', function (done) {
+      var env = { SOME_BOOLEAN_KEY: 'true' };
+      execTestAppWithEnv(env, function (err, config) {
+        if (err) return done(err);
+        assert.equal(config.booleanKey, true);
+        done();
+      });
+    });
   });
 
   describe('transforms.assign', function () {
