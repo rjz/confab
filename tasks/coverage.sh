@@ -3,9 +3,19 @@
 set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-NPMDIR="$DIR/../node_modules/"
-TESTCMD="$NPMDIR/mocha/bin/_mocha"
-TESTARGS="--report lcovonly"
+NPMBINDIR="${DIR}/../node_modules/.bin"
+COVERAGEDIR="${DIR}/coverage"
 
-$NPMDIR/.bin/istanbul cover $TESTCMD $TESTARGS && cat "$DIR/../coverage/lcov.info" | $NPMDIR/.bin/coveralls
+rm -rf "${COVERAGEDIR}"
+
+# Generate coverage files
+NODE_ENV=test ${NPMBINDIR}/istanbul cover \
+  ${NPMBINDIR}/jasmine-node test/ \
+  --dir="${COVERAGEDIR}" \
+  --print=none \
+  --report=none
+
+# Generate report
+${NPMBINDIR}/istanbul report lcov html text-summary \
+  --input="${COVERAGEDIR}"
 

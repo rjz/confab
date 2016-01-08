@@ -97,7 +97,13 @@ describe('confab', function () {
     function execTestAppWithEnv (env, callback) {
       var testAppPath = path.resolve(__dirname, 'fixtures/app.js');
       var opts = { env: assign({}, process.env, env) };
-      exec('node ' + testAppPath, opts, function (err, stdout) {
+
+      var cmd = 'node ' + testAppPath;
+      if (process.env.running_under_istanbul) {
+        cmd = 'istanbul cover --report=none --print=none --include-pid ' + testAppPath;
+      }
+
+      exec(cmd, opts, function (err, stdout) {
         var config;
 
         if (err) return callback(err);

@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "jshint .",
     "test": "NODE_ENV=test jasmine-node test/",
-    "cover": "NODE_ENV=test istanbul cover jasmine-node test/",
+    "cover": "./tasks/coverage.sh",
     "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'"
   },
   "repository": {
