@@ -1,9 +1,6 @@
 'use strict';
 
-var fs = require('fs'),
-    path = require('path');
-
-var transforms = require('./lib/transforms');
+var assign = require('object-assign');
 
 /**
  * Build a configuration object from a list of transformations:
@@ -30,13 +27,10 @@ var transforms = require('./lib/transforms');
  * @param {Array} transforms - a list of transformation functions
  */
 module.exports = function confab (transforms) {
+  transforms = transforms || [];
   return transforms.reduce(function (memo, fn) {
     return fn(memo);
   }, {});
 };
 
-// Extend with known transforms
-for (var f in transforms) {
-  module.exports[f] = transforms[f];
-}
-
+assign(module.exports, require('./lib/transforms'));

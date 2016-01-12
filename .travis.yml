@@ -3,6 +3,7 @@ language: node_js
 node_js:
   - 0.10
   - 0.12
+  - 4.1
 
 sudo: false
 
@@ -10,10 +11,8 @@ env:
   global:
     - NODE_ENV=test
 
-before_script:
-  - export PATH=$PATH:$PWD/node_modules/.bin
+script:
+  - npm run cover
 
-script: npm run cover
-
-after_success: ./tasks/travis_after_success.sh
-
+after_script:
+  - npm run coveralls
