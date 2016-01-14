@@ -1,6 +1,7 @@
 'use strict';
 
 var assign = require('object-assign');
+var Config = require('./lib/config');
 
 /**
  * Build a configuration object from a list of transformations:
@@ -34,3 +35,7 @@ module.exports = function confab (transforms) {
 };
 
 assign(module.exports, require('./lib/transforms'));
+
+module.exports.create = function create(transforms, options) {
+    return Config.create(this(transforms), options);
+};

@@ -3,8 +3,10 @@
 var _ = require('lodash');
 var assign = require('object-assign');
 var path = require('path');
+var os = require('os');
 
 var confab = require(path.resolve(__dirname, '../index'));
+var yaml = require(path.resolve(__dirname, '../lib/yaml'));
 
 function populate(val) {
   return function () {
@@ -14,10 +16,6 @@ function populate(val) {
 
 function jsonFixturePath(name) {
   return path.join(__dirname, 'fixtures', name + '.json');
-}
-
-function yamlFixturePath(name) {
-  return path.join(__dirname, 'fixtures', name + '.yml');
 }
 
 var applyTimesTwo = function (config) {
@@ -46,6 +44,15 @@ describe('#confab', function () {
       }),
       applyTimesTwo
     ]).a).toEqual(8);
+  });
+
+  it('with Config wrapper', function () {
+    expect(confab.create([
+      populate({
+        a: 4
+      }),
+      applyTimesTwo
+    ]).get('a')).toEqual(8);
   });
 
   describe('#transforms.loadJSON', function () {
@@ -104,58 +111,199 @@ describe('#confab', function () {
 
   });
 
-  describe('#transforms.loadYaml', function () {
+  describe('#transforms.loadEnvConfigFile', function () {
+    var prevEnv;
 
-    it('passing in no files gets empty object', function () {
-      var config = confab([
-        confab.loadYaml()
-      ]);
-      expect(config).toEqual({});
+    beforeEach(function () {
+      prevEnv = _.cloneDeep(process.env);
     });
 
-    it('has right author', function () {
+    it('hostname + appenv + appinstance json', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-haa-json');
+      process.env.NODE_APP_INSTANCE = 1;
+      process.env.NODE_ENV = 'test';
+      process.env.HOSTNAME = 'confab';
       var config = confab([
-        confab.loadYaml([
-          yamlFixturePath('test')
-        ])
-      ]);
-      expect(config.author).toEqual('Lewis Carroll');
-    });
-
-    it('accepts a single file as a string', function () {
-      var config = confab([
-        confab.loadYaml(yamlFixturePath('test'))
+        confab.loadEnvConfigFile()
       ]);
       expect(config.author).toEqual('Lewis Carroll');
     });
 
-    it('skips missing files', function () {
+    it('hostname + appenv + appinstance yaml', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-haa-yaml');
+      process.env.NODE_APP_INSTANCE = 1;
+      process.env.NODE_ENV = 'test';
+      process.env.HOSTNAME = 'confab';
       var config = confab([
-        confab.loadYaml([
-          yamlFixturePath('missing'),
-          yamlFixturePath('test')
-        ])
+        confab.loadEnvConfigFile()
+      ]);
+      if (yaml.isAvailable()) {
+        expect(config.author).toEqual('Charles Lutwidge Dodgson');
+      } else {
+        expect(config).toBeUndefined();
+      }
+    });
+
+    it('hostname + appinstance json', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-hai-json');
+      process.env.NODE_APP_INSTANCE = 1;
+      process.env.NODE_ENV = 'test';
+      process.env.HOSTNAME = 'confab';
+      var config = confab([
+        confab.loadEnvConfigFile()
       ]);
       expect(config.author).toEqual('Lewis Carroll');
     });
 
-    it('throws when config is not parseable', function () {
-      expect(function () {
-        confab([
-          confab.loadYaml(yamlFixturePath('invalid'))
-        ]);
-      }).toThrow();
+    it('hostname + appinstance yaml', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-hai-yaml');
+      process.env.NODE_APP_INSTANCE = 1;
+      process.env.NODE_ENV = 'test';
+      process.env.HOSTNAME = 'confab';
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      if (yaml.isAvailable()) {
+        expect(config.author).toEqual('Charles Lutwidge Dodgson');
+      } else {
+        expect(config).toBeUndefined();
+      }
     });
 
-    it('does not clobber existing config', function () {
+    it('hostname + appenv json', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-hae-json');
+      delete process.env.NODE_APP_INSTANCE;
+      process.env.NODE_ENV = 'test';
+      process.env.HOSTNAME = 'confab';
       var config = confab([
-        confab.assign({
-          'extra': 'anything'
-        }),
-        confab.loadYaml(yamlFixturePath('test'))
+        confab.loadEnvConfigFile()
       ]);
+      expect(config.author).toEqual('Lewis Carroll');
+    });
 
-      expect(config.extra).toEqual('anything');
+    it('hostname + appenv yaml', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-hae-yaml');
+      delete process.env.NODE_APP_INSTANCE;
+      process.env.NODE_ENV = 'test';
+      process.env.HOSTNAME = 'confab';
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      if (yaml.isAvailable()) {
+        expect(config.author).toEqual('Charles Lutwidge Dodgson');
+      } else {
+        expect(config).toBeUndefined();
+      }
+    });
+
+    it('hostname json', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-host-json');
+      delete process.env.NODE_APP_INSTANCE;
+      delete process.env.NODE_ENV;
+      process.env.HOSTNAME = 'confab';
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      expect(config.author).toEqual('Lewis Carroll');
+    });
+
+    it('hostname yaml', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-host-yaml');
+      delete process.env.NODE_APP_INSTANCE;
+      delete process.env.NODE_ENV;
+      process.env.HOSTNAME = 'confab';
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      if (yaml.isAvailable()) {
+        expect(config.author).toEqual('Charles Lutwidge Dodgson');
+      } else {
+        expect(config).toBeUndefined();
+      }
+    });
+
+    it('appenv + appinstance json', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-aa-json');
+      process.env.NODE_APP_INSTANCE = 1;
+      process.env.NODE_ENV = 'test';
+      delete process.env.HOSTNAME;
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      expect(config.author).toEqual('Lewis Carroll');
+    });
+
+    it('appenv + appinstance yaml', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-aa-yaml');
+      process.env.NODE_APP_INSTANCE = 1;
+      process.env.NODE_ENV = 'test';
+      delete process.env.HOSTNAME;
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      if (yaml.isAvailable()) {
+        expect(config.author).toEqual('Charles Lutwidge Dodgson');
+      } else {
+        expect(config).toBeUndefined();
+      }
+    });
+
+    it('appenv json', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-env-json');
+      delete process.env.NODE_APP_INSTANCE;
+      process.env.NODE_ENV = 'test';
+      delete process.env.HOSTNAME;
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      expect(config.author).toEqual('Lewis Carroll');
+    });
+
+    it('appenv yaml', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-env-yaml');
+      delete process.env.NODE_APP_INSTANCE;
+      process.env.NODE_ENV = 'test';
+      delete process.env.HOSTNAME;
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      if (yaml.isAvailable()) {
+        expect(config.author).toEqual('Charles Lutwidge Dodgson');
+      } else {
+        expect(config).toBeUndefined();
+      }
+    });
+
+    it('default json', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-default-json');
+      delete process.env.NODE_APP_INSTANCE;
+      delete process.env.NODE_ENV;
+      delete process.env.HOSTNAME;
+      spyOn(os, 'hostname').and.returnValue(undefined);
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      expect(config.author).toEqual('Lewis Carroll');
+    });
+
+    it('default yaml', function () {
+      process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config-default-yaml');
+      delete process.env.NODE_APP_INSTANCE;
+      delete process.env.NODE_ENV;
+      delete process.env.HOSTNAME;
+      spyOn(os, 'hostname').and.returnValue(undefined);
+      var config = confab([
+        confab.loadEnvConfigFile()
+      ]);
+      if (yaml.isAvailable()) {
+        expect(config.author).toEqual('Charles Lutwidge Dodgson');
+      } else {
+        expect(config).toBeUndefined();
+      }
+    });
+
+    afterEach(function () {
+      process.env = prevEnv;
     });
 
   });
