@@ -3,11 +3,16 @@
   "version": "0.0.9",
   "description": "fabulous configuration!",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "lib"
+  ],
   "scripts": {
-    "pretest": "jshint .",
-    "test": "NODE_ENV=test jasmine-node test/",
-    "cover": "./tasks/coverage.sh",
-    "docs": "node -e 'require(\"./tasks\").docs([\"index.js\",\"lib/*.js\"])'"
+    "lint": "gulp lint",
+    "test": "gulp test",
+    "cover": "gulp cover",
+    "coveralls": "gulp coveralls",
+    "docs": "gulp docs"
   },
   "repository": {
     "type": "git",
@@ -17,7 +22,8 @@
     "config",
     "configuration",
     "environment",
-    "json"
+    "json",
+    "yaml"
   ],
   "author": "RJ Zaworski <rj@rjzaworski.com>",
   "license": "MIT",
@@ -25,15 +31,24 @@
     "url": "https://github.com/rjz/confab/issues"
   },
   "dependencies": {
-    "object-assign": "~4.0.1"
+    "debug-log": "^1.0.0",
+    "lodash": "^3.10.0",
+    "object-assign": "~4.0.1",
+    "tryrequire": "^1.1.5"
   },
+  "optionalDependencies": {
+    "js-yaml": "^3.4.6"
+    },
   "devDependencies": {
     "coveralls": "~2.11.1",
     "glob": "~4.0.0",
+    "gulp": "^3.9.0",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-jasmine": "^2.1.0",
+    "gulp-jshint": "^2.0.0",
     "hogan.js": "~2.0.0",
-    "istanbul": "~0.3.0",
-    "jasmine-node": "^1.14.5",
-    "jshint": "~2.5.2",
+    "jshint": "~2.8.0",
     "scrawl": "~0.0.5"
   }
 }
