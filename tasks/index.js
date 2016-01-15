@@ -1,19 +1,18 @@
 var path = require('path'),
-    fs = require('fs');
+  fs = require('fs');
 
-function fatalOr (orElse) {
+function fatalOr(orElse) {
   return function (err, result) {
     if (err) {
       process.stderr.write(err.toString() + '\n');
       process.exit(1);
-    }
-    else {
+    } else {
       orElse.apply(this, [].slice.call(arguments, 1));
     }
   };
 }
 
-function indexBy (arr, key) {
+function indexBy(arr, key) {
   var indexed = {};
 
   arr.forEach(function (item) {
@@ -29,15 +28,15 @@ function indexBy (arr, key) {
 //
 //    $ npm run-script docs
 //
-module.exports.docs = function (patterns) {
+module.exports = function (patterns) {
 
-  function transformComment (file, comment) {
+  function transformComment(file, comment) {
     if (!comment.group) comment.group = packageJson.name;
     comment.file = path.relative(path.resolve(__dirname, '..'), file);
     return comment;
   }
 
-  function transformFiles (files) {
+  function transformFiles(files) {
     var indexedMethods = indexBy(files, 'group');
     return Object.keys(indexedMethods).map(function (group) {
       return {
@@ -48,11 +47,11 @@ module.exports.docs = function (patterns) {
   }
 
   var glob = require('glob'),
-      hogan = require('hogan.js'),
-      scrawl = require('scrawl');
+    hogan = require('hogan.js'),
+    scrawl = require('scrawl');
 
   var packageJson = require(path.resolve(__dirname, '../package.json')),
-      templateFiles = glob.sync(path.resolve(__dirname, './*.hogan'));
+    templateFiles = glob.sync(path.resolve(__dirname, './*.hogan'));
 
   var files = patterns.reduce(function (memo, pattern) {
     var srcFiles = glob.sync(path.resolve(__dirname, '..', pattern));
@@ -70,11 +69,11 @@ module.exports.docs = function (patterns) {
   }, {});
 
   var tmpl = templates.template.render({
-    groups      : transformFiles(files),
-    repository  : packageJson.repository.url,
-    name        : packageJson.name,
-    license     : packageJson.license,
-    description : packageJson.description
+    groups: transformFiles(files),
+    repository: packageJson.repository.url,
+    name: packageJson.name,
+    license: packageJson.license,
+    description: packageJson.description
   }, templates);
 
   if (!fs.existsSync('./docs')) {
@@ -86,4 +85,3 @@ module.exports.docs = function (patterns) {
 
   fs.writeFileSync('./docs/index.html', tmpl);
 };
-

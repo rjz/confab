@@ -1,8 +1,5 @@
 'use strict';
 
-var fs = require('fs'),
-    path = require('path');
-
 var transforms = require('./lib/transforms');
 
 /**
