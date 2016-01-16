@@ -25,6 +25,12 @@
     "json"
   ],
   "author": "RJ Zaworski <rj@rjzaworski.com>",
+  "contributors": [
+    {
+      "name": "Kenny Jones",
+      "email": "kenjones@cisco.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rjz/confab/issues"
