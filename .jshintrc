@@ -1,5 +1,9 @@
 {
   "node": true,
-  "jasmine": true
+  "jasmine": true,
+  "eqeqeq":    true,
+  "strict":    true,
+  "undef":     true,
+  "unused":    true
 }
 
