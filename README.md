@@ -6,32 +6,39 @@ Build configuration objects from chains of recycleable transformations:
 [![Build Status](https://travis-ci.org/rjz/confab.png)](https://travis-ci.org/rjz/confab)
 [![Coverage Status](https://coveralls.io/repos/rjz/confab/badge.png?branch=master)](https://coveralls.io/r/rjz/confab?branch=master)
 
-    // file: myapp.js
-    'use strict';
-    var confab = require('confab');
+```js
+// file: myapp.js
+'use strict';
+var confab = require('confab');
 
-    var config = confab([
-      confab.loadEnvironment({
-        PORT: 'port'
-      }),
+var config = confab([
+  confab.loadEnvironment({
+    PORT: 'port'
+  }),
 
-      confab.defaults({
-        role: 'api',
-        port: 4500
-      }),
-    ]);
+  confab.defaults({
+    role: 'api',
+    port: 4500
+  }),
+]);
 
-    console.log(config);
+console.log(config);
+```
 
 With the environment and defaults applied, we see a nicely built configuration:
 
-    $ PORT=3200 node myapp.js
-    { role: 'api', port: '3200' }
+```sh
+$ PORT=3200 node myapp.js
+{ role: 'api', port: '3200' }
+```
 
 Installation
 -------------------------------------------------------------------------------
 
-    $ npm install confab
+```sh
+$ npm install confab
+```
+
 
 Convention and Configuration
 -------------------------------------------------------------------------------
@@ -71,7 +78,6 @@ Namely, configuration should be:
     configuration is left as a project-specific decision. No transformations
     are provided for command-line support--but you can write your own!
 
-
 Transformations
 -------------------------------------------------------------------------------
 
@@ -101,36 +107,43 @@ Every transformation accepts the config object and returns it after any
 modifications have been applied. A silly example from the test suite will
 multiply any numeric config values by two:
 
-    function transformTimesTwo (config) {
-      Object.keys(config).forEach(function (k) {
-        if (typeof config[k] === 'number') config[k] *= 2;
-      });
-      return config;
-    }
+```js
+function transformTimesTwo (config) {
+  Object.keys(config).forEach(function (k) {
+    if (typeof config[k] === 'number') config[k] *= 2;
+  });
+  return config;
+}
+```
 
 This filter can then be used like any other:
 
-    var config = confab([
+```js
+var config = confab([
 
-      confab.loadJSON([
-        './config.json'
-      ]),
+  confab.loadJSON([
+    './config.json'
+  ]),
 
-      transformTimesTwo
-    ]);
-
-
+  transformTimesTwo
+]);
+```
 
 Test
 -------------------------------------------------------------------------------
 
 Lint and run test suite:
 
-    $ npm test
+```sh
+$ npm test
+```
 
 Generate code coverage report:
 
-    $ npm run cover
+```sh
+$ npm run cover
+```
+
 
 License
 -------------------------------------------------------------------------------
@@ -142,5 +155,3 @@ MIT
 [confab-freeze]: http://rjz.github.io/confab/#transforms-freeze
 [confab-addons]: https://github.com/kenjones-cisco/confab-addons
 [confab-features]: https://github.com/rjz/confab-features
-
-
