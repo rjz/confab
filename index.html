@@ -103,7 +103,7 @@
             
                 <h3>
                   <a name="confab"></a><code>confab</code>
-                  <small>(<a href="https://github.com/rjz/confab/tree/master/index.js#L6">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confab/tree/master/index.js#L5">definition</a>)</small>
                 </h3>
               </header>
               <div>
@@ -161,16 +161,17 @@
             
                 <h3>
                   <a name="loadJSON"></a><code>loadJSON</code>
-                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L7">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L9">definition</a>)</small>
                 </h3>
               </header>
               <div>
             
                 <p>Load a configuration from a list of candidate files.</p>
 
-<p>Attempts to load a configuration file from the list of locations. Throws a
-<code>ReferenceError</code> if configuration cannot be loaded from any of the specified
-paths.</p>
+<p>Extends the configuration with the contents of the configuration file at the
+first matched <code>path</code>, falling back to subsequent <code>path</code>s if the first cannot
+be found. Throws a <code>ReferenceError</code> if none of the specified paths are
+matched.</p>
 
 <pre><code>var loadJSONTransform = confab.loadJSON([
  './config.json',
@@ -209,12 +210,13 @@ paths.</p>
             
                 <h3>
                   <a name="loadEnvironment"></a><code>loadEnvironment</code>
-                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L49">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L51">definition</a>)</small>
                 </h3>
               </header>
               <div>
             
-                <p>Map environment variables (if available) to keys in the config.</p>
+                <p>Map environment variables (if set) to keys in the config. Unset variables are
+ignored.</p>
 
 <pre><code>var envTransform = confab.loadEnvironment({
   'NODE_ENV': 'environment',
@@ -235,6 +237,11 @@ paths.</p>
                     <td>map</td>
                     <td>a list of environment variables to map to config keys</td>
                   </tr>
+      <tr>
+                    <td><code>Object</code></td>
+                    <td>options</td>
+                    <td>a list of options.</td>
+                  </tr>
     </table>
 
             
@@ -252,12 +259,13 @@ paths.</p>
             
                 <h3>
                   <a name="assign"></a><code>assign</code>
-                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L83">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L97">definition</a>)</small>
                 </h3>
               </header>
               <div>
             
-                <p>Merge an object with the existing config</p>
+                <p>Merge an object with the existing config, replacing any existing keys with
+the <code>assign</code>-ed values.</p>
 
 <pre><code>var envTransform = confab.assign({
   port: '1492'
@@ -299,7 +307,7 @@ paths.</p>
             
                 <h3>
                   <a name="required"></a><code>required</code>
-                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L114">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L123">definition</a>)</small>
                 </h3>
               </header>
               <div>
@@ -337,7 +345,7 @@ missing fields. If all fields are present, <code>required</code> acts as a pass-
             
                 <h3>
                   <a name="defaults"></a><code>defaults</code>
-                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L138">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L147">definition</a>)</small>
                 </h3>
               </header>
               <div>
@@ -385,7 +393,7 @@ missing fields. If all fields are present, <code>required</code> acts as a pass-
             
                 <h3>
                   <a name="freeze"></a><code>freeze</code>
-                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L168">definition</a>)</small>
+                  <small>(<a href="https://github.com/rjz/confab/tree/master/lib/transforms.js#L177">definition</a>)</small>
                 </h3>
               </header>
               <div>
