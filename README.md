@@ -71,6 +71,7 @@ Namely, configuration should be:
     configuration is left as a project-specific decision. No transformations
     are provided for command-line support--but you can write your own!
 
+
 Transformations
 -------------------------------------------------------------------------------
 
@@ -83,6 +84,16 @@ Confab ships with transformations for:
   * Locking down the configuration
 
 Complete [reference](http://rjz.github.io/confab/#transforms).
+
+### Additional transformations
+
+Known third-party transformations include:
+
+Name                                 | Description
+------------------------------------ | ----------------------------------------
+[`loadYaml`][confab-addons]          | load YAML configuration files
+[`loadEnvConfigFile`][confab-addons] | load config files from likely locations
+[`features`][confab-features]        | declare and toggle config features
 
 ### Custom transformations
 
@@ -109,6 +120,7 @@ This filter can then be used like any other:
     ]);
 
 
+
 Test
 -------------------------------------------------------------------------------
 
@@ -128,4 +140,7 @@ MIT
 [confab-defaults]: http://rjz.github.io/confab/#transforms-defaults
 [confab-required]: http://rjz.github.io/confab/#transforms-required
 [confab-freeze]: http://rjz.github.io/confab/#transforms-freeze
+[confab-addons]: https://github.com/kenjones-cisco/confab-addons
+[confab-features]: https://github.com/rjz/confab-features
+
 
