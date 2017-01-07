@@ -36,12 +36,22 @@ module.exports = function (patterns) {
     return comment;
   }
 
+  function methodSignature (method) {
+    return method.params && method.params.map(function (p) {
+      return p.name + ': ' + p.type;
+    }).join(', ');
+  }
+
   function transformFiles(files) {
     var indexedMethods = indexBy(files, 'group');
     return Object.keys(indexedMethods).map(function (group) {
       return {
         groupName: group,
-        methods: indexedMethods[group]
+        methods: indexedMethods[group].map(function (m) {
+          return Object.assign({}, m, {
+            signature: methodSignature(m),
+          });
+        }),
       };
     });
   }
@@ -80,8 +90,14 @@ module.exports = function (patterns) {
     fs.mkdirSync('./docs');
   }
 
-  fs.createReadStream(__dirname + '/style.css')
+  fs.createReadStream(__dirname + '/../node_modules/zakalwe/zakalwe.min.css')
     .pipe(fs.createWriteStream('./docs/style.css'));
+
+  fs.createReadStream(__dirname + '/assets/engravers-workshop-night.jpg')
+    .pipe(fs.createWriteStream('./docs/cover.jpg'));
+
+  fs.createReadStream(__dirname + '/assets/docs.css')
+    .pipe(fs.createWriteStream('./docs/docs.css'));
 
   fs.writeFileSync('./docs/index.html', tmpl);
 };
