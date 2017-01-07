@@ -93,9 +93,6 @@ module.exports = function (patterns) {
   fs.createReadStream(__dirname + '/../node_modules/zakalwe/zakalwe.min.css')
     .pipe(fs.createWriteStream('./docs/style.css'));
 
-  fs.createReadStream(__dirname + '/assets/engravers-workshop-night.jpg')
-    .pipe(fs.createWriteStream('./docs/cover.jpg'));
-
   fs.createReadStream(__dirname + '/assets/docs.css')
     .pipe(fs.createWriteStream('./docs/docs.css'));
 
