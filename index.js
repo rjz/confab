@@ -24,7 +24,8 @@ var transforms = require('./lib/transforms');
  *
  * @id confab
  * @type Function
- * @param {Array} transforms - a list of transformation functions
+ * @param {Array<Function>} transforms - a list of transformation functions
+ * @return Object
  */
 module.exports = function confab (transforms) {
   return transforms.reduce(function (memo, fn) {

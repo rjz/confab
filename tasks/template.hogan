@@ -2,87 +2,85 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="docs.css" />
     <title>{{name}}</title>
   </head>
   <body>
-  <a href="{{repository}}"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-    <div class="content">
-      <section class="container">
+  <a href="{{repository}}"><img style="position: absolute; top: 0; right: 0; border: 0; z-index:2" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    <article class="docs">
+      <header>
         <h1><a name="top"></a>{{name}}</h1>
+        <p class="leader">Functional JavaScript configuration.</p>
+      </header>
 
-        <div>
-          <p>A tool for describing application configurations!</p>
-        </div>
-
-        <h3>Contents</h3>
-        <ul>
-          <li><a href="{{repository}}">Source code</a></li>
-          <li><a href="{{repository}}/tree/master/README.md">Readme</a></li>
-          <li><a href="{{repository}}/tree/master/LICENSE">License ({{license}})</a></li>
-          {{#groups}}
-            <li>
-              <a href="#{{groupName}}">{{groupName}}</a>
-              <ul>
-                {{#methods}}
-                <li>
-                  <a href="#{{groupName}}-{{id}}"><code>{{id}}</code></a>
-                </li>
-                {{/methods}}
-              </ul>
-            </li>
-          {{/groups}}
-        </ul>
-
-        <h3 id="convention-and-configuration">Convention and Configuration</h3>
-
-        <p>Confab is configuration-first by nature, as the details of configuration may
-        vary widely from one project to the next. Nevertheless, the built-in
-        transformations reflect certain opinions.</p>
-        <p>Namely, configuration should be:</p>
-        <ul>
-          <li><p><strong>separate</strong>. Keeping configuration isolated from application logic eases
-          deployment across multiple environments. Confab encourages developers to
-          author complete configurations independent of the application.</p>
-          </li>
-          <li><p><strong>predictable</strong>. Like any other exception, errors in configuration should be
-          immediately fatal. All confab transformations will fail immediately if
-          unexpected conditions are encountered, while the <a href="http://rjz.github.io/confab/#transforms-required"><code>required</code></a>
-          transformation can assert the presence of certain configuration keys.
-          Similarly, the <a href="http://rjz.github.io/confab/#transforms-defaults"><code>defaults</code></a> transformation--while
-          unquestionably useful--should be approached with care.</p>
-          </li>
-          <li><p><strong>immutable</strong>. The running application should not be concerned with
-          configuration changes: if a change must be applied it should be applied to a
-          new process. The <a href="http://rjz.github.io/confab/#transforms-freeze"><code>freeze</code></a> transformation guarantees that a
-          config will not change after initialization.</p>
-          </li>
-          <li><p><strong>simple</strong>. File-based configs (JSON, YAML, etc.) make
-          it easy to nest data inside multiple levels of keys. This is convenient for
-          grouping like data, but it is not immediately clear how these data would map
-          to (e.g.) environment variables or command-line arguments.
-          Sub-configurations can enhance separation between unrelated concerns, but
-          they should be used with care.</p>
-          </li>
-        </ul>
-        <h4 id="and-one-non-opinion">And one non-opinion</h4>
-        <ul>
-          <li>Command-line parsing, and what impact (if any) arguments should have on the
-          configuration is left as a project-specific decision. No transformations
-          are provided for command-line support--but you can write your own!</li>
-        </ul>
-
-
+      <h2>Contents</h2>
+      <ol class="table-of-contents">
+        <li><a href="{{repository}}">Source code</a></li>
+        <li><a href="{{repository}}/tree/master/README.md">Readme</a></li>
+        <li><a href="{{repository}}/tree/master/LICENSE">License ({{license}})</a></li>
         {{#groups}}
-          <hr />
-          <a name="{{groupName}}"></a>
-          {{#methods}}
-          <a name="{{groupName}}-{{id}}"></a>
-            {{>method}}
-          {{/methods}}
+          <li>
+            <a href="#{{groupName}}">{{groupName}}</a>
+            <ol>
+              {{#methods}}
+              <li>
+                <a href="#{{groupName}}-{{id}}"><code>{{id}}</code></a>
+              </li>
+              {{/methods}}
+            </ol>
+          </li>
         {{/groups}}
+      </ol>
 
-      </section>
-    </div>
+      <h3 id="convention-and-configuration">Convention and Configuration</h3>
+
+      <p>Confab is configuration-first by nature, as the details of
+      configuration may vary widely from one project to the next. Its built-in
+      transformations nevertheless reflect certain opinions, including that
+      configuration be:</p>
+
+      <ul>
+        <li><p><strong>separate</strong>. Keeping configuration isolated from application logic eases
+        deployment across multiple environments. Confab encourages developers to
+        author complete configurations independent of the application.</p>
+        </li>
+        <li><p><strong>predictable</strong>. Like any other exception, errors in configuration should be
+        immediately fatal. All confab transformations will fail immediately if
+        unexpected conditions are encountered, while the <a href="http://rjz.github.io/confab/#transforms-required"><code>required</code></a>
+        transformation can assert the presence of certain configuration keys.
+        Similarly, the <a href="http://rjz.github.io/confab/#transforms-defaults"><code>defaults</code></a> transformation--while
+        unquestionably useful--should be approached with care.</p>
+        </li>
+        <li><p><strong>immutable</strong>. The running application should not be concerned with
+        configuration changes: if a change must be applied it should be applied to a
+        new process. The <a href="http://rjz.github.io/confab/#transforms-freeze"><code>freeze</code></a> transformation guarantees that a
+        config will not change after initialization.</p>
+        </li>
+        <li><p><strong>simple</strong>. File-based configs (JSON, YAML, etc.) make
+        it easy to nest data inside multiple levels of keys. This is convenient for
+        grouping like data, but it is not immediately clear how these data would map
+        to (e.g.) environment variables or command-line arguments.
+        Sub-configurations can enhance separation between unrelated concerns, but
+        they should be used with care.</p>
+        </li>
+      </ul>
+      <h4 id="and-one-non-opinion">And one non-opinion</h4>
+      <ul>
+        <li>Command-line parsing, and what impact (if any) arguments should have on the
+        configuration is left as a project-specific decision. No transformations
+        are provided for command-line support--but you can write your own!</li>
+      </ul>
+
+
+      {{#groups}}
+        <a name="{{groupName}}"></a>
+        {{#methods}}
+        <a name="{{groupName}}-{{id}}"></a>
+          {{>method}}
+        {{/methods}}
+      {{/groups}}
+
+    </article>
     <footer class="dark">
       <p class="copyright">
         Another unrepentant production from <a href="http://rjzaworski.com">rj zaworski</a>

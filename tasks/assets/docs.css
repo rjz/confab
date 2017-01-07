@@ -1,0 +1,33 @@
+ol.table-of-contents {
+  margin:2em 0 2em 2em;
+  padding: 0;
+}
+
+ol.table-of-contents a:link,
+ol.table-of-contents a:visited {
+  color: #231f20;
+}
+
+ol.table-of-contents li {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+ol.table-of-contents ol {
+  margin:0 0 1em 1em;
+  padding:0;
+}
+
+article.docs header {
+  text-align: center;
+}
+
+article.docs section {
+  border-top: 1px solid #231f20;
+  margin: 3em -3em 0;
+  padding: 0 3em;
+}
+
+article.docs section header {
+  text-align: left;
+}

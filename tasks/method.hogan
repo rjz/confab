@@ -1,43 +1,33 @@
 <section>
   <header>
-    <ul class="pull-right nav-meta nav-inline">
-      <li><a href="#{{groupName}}">{{groupName}}</a></li>
-      <li><a href="#top">top</a></li>
-    </ul>
-
-    <h3>
-      <a name="{{id}}"></a><code>{{id}}</code>
-      <small>(<a href="{{repository}}/tree/master/{{file}}#L{{line}}">definition</a>)</small>
-    </h3>
+    <h2>
+      <code>
+        <a href="#{{groupName}}">{{groupName}}</a>.<a name="{{id}}"></a>{{id}}</a>({{signature}}): {{return}}
+      </code>
+    </h2>
   </header>
+
   <div>
+    {{#params.length}}
+    <ul>
+      {{#params}}
+      <li><code>{{name}}</code> - {{description}}</li>
+      {{/params}}
+    </ul>
+    {{/params.length}}
 
     {{{description_html}}}
-
-    {{#params.length}}
-
-    <h4>Arguments</h4>
-    <table>
-      <tr>
-        <th width="15%">Type</th>
-        <th width="15%">Name</th>
-        <th width="60%">Description</th>
-      </tr>
-    {{#params}}
-      <tr>
-        <td><code>{{type}}</code></td>
-        <td>{{name}}</td>
-        <td>{{description}}</td>
-      </tr>
-    {{/params}}
-    </table>
-    {{/params.length}}
 
     {{#example}}
       <h5>Example</h5>
       <pre><code>{{example}}</code></pre>
     {{/example}}
 
+    <p>
+      <a href="{{repository}}/tree/master/{{file}}#L{{line}}">source</a>
+      | <a href="#{{groupName}}">{{groupName}}</a>
+      | <a href="#top">return to top</a>
+    </p>
   </div>
 
 </section>
