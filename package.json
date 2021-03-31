@@ -1,10 +1,14 @@
 {
   "name": "confab",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "fabulous configuration!",
   "main": "index.js",
   "types": "index.d.ts",
-  "files": ["index.d.ts", "index.js", "lib"],
+  "files": [
+    "index.d.ts",
+    "index.js",
+    "lib"
+  ],
   "scripts": {
     "lint": "gulp lint",
     "test": "gulp test",
@@ -16,7 +20,12 @@
     "type": "git",
     "url": "https://github.com/rjz/confab"
   },
-  "keywords": ["config", "configuration", "environment", "json"],
+  "keywords": [
+    "config",
+    "configuration",
+    "environment",
+    "json"
+  ],
   "author": "RJ Zaworski <rj@rjzaworski.com>",
   "contributors": [
     {
