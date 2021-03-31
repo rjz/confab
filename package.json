@@ -4,11 +4,7 @@
   "description": "fabulous configuration!",
   "main": "index.js",
   "types": "index.d.ts",
-  "files": [
-    "index.d.ts",
-    "index.js",
-    "lib"
-  ],
+  "files": ["index.d.ts", "index.js", "lib"],
   "scripts": {
     "lint": "gulp lint",
     "test": "gulp test",
@@ -20,12 +16,7 @@
     "type": "git",
     "url": "https://github.com/rjz/confab"
   },
-  "keywords": [
-    "config",
-    "configuration",
-    "environment",
-    "json"
-  ],
+  "keywords": ["config", "configuration", "environment", "json"],
   "author": "RJ Zaworski <rj@rjzaworski.com>",
   "contributors": [
     {
@@ -50,7 +41,7 @@
     "gulp-jshint": "^2.0.0",
     "hogan.js": "~2.0.0",
     "jshint": "~2.8.0",
-    "lodash": "^3.10.0",
+    "lodash": "^4.17.21",
     "scrawl": "~0.0.5",
     "zakalwe": "https://github.com/rjz/zakalwe.git"
   }
